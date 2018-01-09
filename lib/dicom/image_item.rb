@@ -1,3 +1,5 @@
+require 'pry'
+
 module DICOM
 
   # Super class which contains common code for both the DObject and Item classes.
@@ -187,6 +189,8 @@ module DICOM
           pixel_frames.each do |pixels|
             # Pixel values and pixel order may need to be rearranged if we have color data:
             pixels = process_colors(pixels) # if color?
+
+            binding.pry
             if pixels
               images << read_image(pixels, num_cols, num_rows, options)
             else
