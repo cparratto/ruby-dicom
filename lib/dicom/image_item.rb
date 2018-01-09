@@ -40,7 +40,7 @@ module DICOM
     # @return [Boolean] true if the object contains colored pixels, and false if not
     #
     def color?
-      "Photometric Interpretation" is contained in the data element "0028,0004":
+      #"Photometric Interpretation" is contained in the data element "0028,0004":
       begin
         photometric = photometry
         if photometric.include?('COLOR') or photometric.include?('RGB') or photometric.include?('YBR') or photometric.include?('YBR_FULL')
