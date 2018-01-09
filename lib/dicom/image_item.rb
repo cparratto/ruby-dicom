@@ -43,17 +43,16 @@ module DICOM
     #
     def color?
       #"Photometric Interpretation" is contained in the data element "0028,0004":
-      # begin
-      #   photometric = photometry
-      #   if photometric.include?('COLOR') or photometric.include?('RGB') or photometric.include?('YBR') or photometric.include?('YBR_FULL')
-      #     return true
-      #   else
-      #     return false
-      #   end
-      # rescue
-      #   return false
-      # end
-      true
+      begin
+        photometric = photometry
+        if photometric.include?('COLOR') or photometric.include?('RGB') or photometric.include?('YBR') or photometric.include?('YBR_FULL')
+          return true
+        else
+          return false
+        end
+      rescue
+        return false
+      end
     end
 
     # Checks if compressed pixel data is present.
@@ -188,9 +187,7 @@ module DICOM
           images = Array.new
           pixel_frames.each do |pixels|
             # Pixel values and pixel order may need to be rearranged if we have color data:
-            pixels = process_colors(pixels) # if color?
-
-            binding.pry
+            pixels = process_colors(pixels) if color?
             if pixels
               images << read_image(pixels, num_cols, num_rows, options)
             else
@@ -585,6 +582,7 @@ module DICOM
         # As we have now ordered the pixels in RGB order, modify planar configuration to reflect this:
         planar = 0
       elsif photometric.include?('YBR') or photometric.include?('YBR_FULL')
+        binding.pry
         rgb = false
       else
         rgb = pixels
