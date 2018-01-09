@@ -41,16 +41,17 @@ module DICOM
     #
     def color?
       #"Photometric Interpretation" is contained in the data element "0028,0004":
-      begin
-        photometric = photometry
-        if photometric.include?('COLOR') or photometric.include?('RGB') or photometric.include?('YBR') or photometric.include?('YBR_FULL')
-          return true
-        else
-          return false
-        end
-      rescue
-        return false
-      end
+      # begin
+      #   photometric = photometry
+      #   if photometric.include?('COLOR') or photometric.include?('RGB') or photometric.include?('YBR') or photometric.include?('YBR_FULL')
+      #     return true
+      #   else
+      #     return false
+      #   end
+      # rescue
+      #   return false
+      # end
+      true
     end
 
     # Checks if compressed pixel data is present.
