@@ -40,19 +40,17 @@ module DICOM
     # @return [Boolean] true if the object contains colored pixels, and false if not
     #
     def color?
-      # "Photometric Interpretation" is contained in the data element "0028,0004":
-      # begin
-      #   photometric = photometry
-      #   if photometric.include?('COLOR') or photometric.include?('RGB') or photometric.include?('YBR') or photometric.include?('YBR_FULL')
-      #     return true
-      #   else
-      #     return false
-      #   end
-      # rescue
-      #   return false
-      # end
-
-      true
+      "Photometric Interpretation" is contained in the data element "0028,0004":
+      begin
+        photometric = photometry
+        if photometric.include?('COLOR') or photometric.include?('RGB') or photometric.include?('YBR') or photometric.include?('YBR_FULL')
+          return true
+        else
+          return false
+        end
+      rescue
+        return false
+      end
     end
 
     # Checks if compressed pixel data is present.
@@ -581,7 +579,7 @@ module DICOM
         end
         # As we have now ordered the pixels in RGB order, modify planar configuration to reflect this:
         planar = 0
-      elsif photometric.include?('YBR')
+      elsif photometric.include?('YBR') or photometric.include?('YBR_FULL')
         rgb = false
       else
         rgb = pixels
