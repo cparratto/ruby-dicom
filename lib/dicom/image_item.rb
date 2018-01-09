@@ -186,7 +186,7 @@ module DICOM
           images = Array.new
           pixel_frames.each do |pixels|
             # Pixel values and pixel order may need to be rearranged if we have color data:
-            pixels = process_colors(pixels) if color?
+            pixels = process_colors(pixels) # if color?
             if pixels
               images << read_image(pixels, num_cols, num_rows, options)
             else
